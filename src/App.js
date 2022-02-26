@@ -1,23 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Card from "./components/Card";
+import NavBar from "./components/NavBar";
+
+// Generates a rgb value
+const generatePastelColor = () => {
+  let R = Math.floor(Math.random() * 127 + 127);
+  let G = Math.floor(Math.random() * 127 + 127);
+  let B = Math.floor(Math.random() * 127 + 127);
+
+  return "rgb("+R+", "+G+", "+B+")";
+};
+
+// Generates map of all rgb values
+const getColors = () => {
+  let allColors = [];
+  for (let i = 0; i < 4; i++) {
+    allColors.push(generatePastelColor());
+  }
+  return allColors;
+};
 
 function App() {
+  let allColors = getColors();
+  let correctAnswer = allColors.at(Math.random()*3);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <NavBar rgb={correctAnswer} />
+      <Card allColors={allColors} correctAnswer={correctAnswer}/>
     </div>
   );
 }
