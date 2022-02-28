@@ -5,9 +5,6 @@ import NavBar from "./components/NavBar";
 import PlayAgainButton from "./components/PlayAgainButton";
 
 function App() {
-  const [wonGame, setWonGame] = useState(false);
-  // const [playAgain, setPlayAgain] = useState(false);
-
   // Generates a rgb value
   const generatePastelColor = () => {
     let R = Math.floor(Math.random() * 127 + 127);
@@ -16,32 +13,46 @@ function App() {
     return "rgb(" + R + ", " + G + ", " + B + ")";
   };
 
-  // Generates map of all rgb values
+  // Generates object with correct answer and all rgb values
   const getColors = () => {
     let colors = [];
     for (let i = 0; i < 4; i++) {
       colors.push(generatePastelColor());
     }
-    let allColors = {
+    return {
       correctAnswer: colors.at(Math.random() * 3),
       values: colors,
     };
-    return allColors;
   };
 
-  let allColors = getColors();
-  let correctAnswer = allColors.correctAnswer;
+  const [wonGame, setWonGame] = useState(false);
+  const [allColors, setAllColors] = useState(getColors);
+
+  const correctAnswer = allColors.correctAnswer;
 
   return (
     <div className="App">
       {wonGame ? (
-        <NavBar rgb={correctAnswer} customBg={correctAnswer} />
+        <NavBar
+          wonGame={wonGame}
+          rgb={correctAnswer}
+          customBg={correctAnswer}
+        />
       ) : (
-        <NavBar rgb={correctAnswer} customBg="rgb(0,0,0)" />
+        <NavBar wonGame={wonGame} rgb={correctAnswer} customBg="rgb(0,0,0)" />
       )}
-      {wonGame ? null : <Card setWonGame={setWonGame} allColors={allColors} />}
-      {/* {wonGame ? <PlayAgainButton customBg={allColors.correctAnswer} /> : null} */}
-      {/* <Card setWonGame={setWonGame} allColors={allColors} correctAnswer={correctAnswer} /> */}
+      {wonGame ? (
+        <Card setWonGame={setWonGame} allColors={allColors} />
+      ) : (
+        <Card setWonGame={setWonGame} allColors={allColors} />
+      )}
+      {wonGame ? (
+        <PlayAgainButton
+          setWonGame={setWonGame}
+          setAllColors={setAllColors}
+          customBg={allColors.correctAnswer}
+        />
+      ) : null}
     </div>
   );
 }
