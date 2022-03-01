@@ -25,29 +25,35 @@ function App() {
     };
   };
 
+  const [playAgainPressed, setPlayAgainPressed] = useState(false);
   const [wonGame, setWonGame] = useState(false);
   const [allColors, setAllColors] = useState(getColors);
 
-  const correctAnswer = allColors.correctAnswer;
+  // let correctAnswer = allColors.correctAnswer;
 
   return (
     <div className="App">
       {wonGame ? (
         <NavBar
           wonGame={wonGame}
-          rgb={correctAnswer}
-          customBg={correctAnswer}
+          rgb={allColors.correctAnswer}
+          customBg={allColors.correctAnswer}
         />
       ) : (
-        <NavBar wonGame={wonGame} rgb={correctAnswer} customBg="rgb(0,0,0)" />
+        <NavBar
+          wonGame={wonGame}
+          rgb={allColors.correctAnswer}
+          customBg="rgb(0,0,0)"
+        />
       )}
       {wonGame ? (
-        <Card setWonGame={setWonGame} allColors={allColors} />
+        <Card playAgainPressed={playAgainPressed} setWonGame={setWonGame} allColors={allColors} />
       ) : (
-        <Card setWonGame={setWonGame} allColors={allColors} />
+        <Card playAgainPressed={playAgainPressed} setWonGame={setWonGame} allColors={allColors} />
       )}
       {wonGame ? (
         <PlayAgainButton
+          getColors={getColors}
           setWonGame={setWonGame}
           setAllColors={setAllColors}
           customBg={allColors.correctAnswer}

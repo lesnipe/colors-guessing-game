@@ -3,15 +3,17 @@ function ColorsButton(props) {
   const hiddenButton = [];
   const checkAnswer = (button) => {
     if (props.correctAnswer === button.target.style.backgroundColor) {
-      props.setWonGame(true);
+      
+      
       hiddenButton.forEach(element =>{
         element.style.visibility = "visible";
-      })
-      console.log("Grats!");
+      });
+      props.setWonGame(true);
+      console.log("Hidden buttons: " + hiddenButton);
     } else {
+      hiddenButton.push(button);
       props.setWonGame(false);
       button.target.style.visibility = "hidden";
-      hiddenButton.push(button);
     }
   };
 
