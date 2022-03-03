@@ -2,25 +2,22 @@ import "../App.css";
 
 function NavBar(props) {
   return (
-    <header className="navbar" style={{ backgroundColor: props.customBg }}>
-      {props.wonGame ? (
-        <p className="navbar-title" style={{ color: "black" }}>
-          {props.rgb}
-        </p>
-      ) : (
-        <p className="navbar-title" style={{ color: "white" }}>
-          {props.rgb}
-        </p>
-      )}
-      {props.wonGame ? (
-        <p className="navbar-text" style={{ color: "black" }}>
-          Congratulations!
-        </p>
-      ) : (
-        <p className="navbar-text" style={{ color: "white" }}>
-          Choose the correct color:
-        </p>
-      )}
+    <header
+      className="navbar"
+      style={{ backgroundColor: props.wonGame ? props.rgb : "black" }}
+    >
+      <p
+        className="navbar-title"
+        style={{ color: props.wonGame ? "black" : "white" }}
+      >
+        {props.wonGame? 'Congratulations!' : props.rgb}
+      </p>
+      <p
+        className="navbar-text"
+        style={{ color: props.wonGame ? "black" : "white", fontSize: props.wonGame && 20 }}
+      >
+        {props.wonGame ? 'Correct\'s color value: ' + props.rgb : "Choose the correct color:"}
+      </p>
     </header>
   );
 }

@@ -5,7 +5,18 @@ import NavBar from "./components/NavBar";
 import PlayAgainButton from "./components/PlayAgainButton";
 
 function App() {
-  // Generates a rgb value
+
+  // Get Colors Data
+  const getColors = (colorsCount) => {
+    const colors = [];
+    for (let i = 0; i < colorsCount; i++) {
+      colors.push(generatePastelColor(colorsCount));
+    }
+    return {
+      correctAnswer: colors.at(Math.floor(Math.random() * (colorsCount - 1))),
+      colorsStrings: colors,
+    };;
+  };
   const generatePastelColor = () => {
     let R = Math.floor(Math.random() * 127 + 127);
     let G = Math.floor(Math.random() * 127 + 127);
@@ -13,52 +24,46 @@ function App() {
     return "rgb(" + R + ", " + G + ", " + B + ")";
   };
 
-  // Generates object with correct answer and all rgb values
-  const getColors = () => {
-    let colors = [];
-    for (let i = 0; i < 4; i++) {
-      colors.push(generatePastelColor());
-    }
-    return {
-      correctAnswer: colors.at(Math.random() * 3),
-      values: colors,
-    };
+  // Play again handler
+  const playAgainHandler = () => {
+    setAllColorsText(getColors(allColorsText.colorsStrings.length));
+    setAtLeastOneHidden(true);
+    setWonGame(false);
   };
 
+  // States
   const [playAgainPressed, setPlayAgainPressed] = useState(false);
   const [wonGame, setWonGame] = useState(false);
-  const [allColors, setAllColors] = useState(getColors);
+  const [allColorsText, setAllColorsText] = useState(getColors(4));
+  const [atLeastOneHidden, setAtLeastOneHidden] = useState(false);
 
-  // let correctAnswer = allColors.correctAnswer;
+  // Toggle new game state
+  useEffect(() => {
+    if (wonGame) setAtLeastOneHidden(true);
+    else if (!wonGame) setAtLeastOneHidden(false);
+  }, [wonGame]);
 
   return (
     <div className="App">
-      {wonGame ? (
-        <NavBar
-          wonGame={wonGame}
-          rgb={allColors.correctAnswer}
-          customBg={allColors.correctAnswer}
-        />
-      ) : (
-        <NavBar
-          wonGame={wonGame}
-          rgb={allColors.correctAnswer}
-          customBg="rgb(0,0,0)"
-        />
-      )}
-      {wonGame ? (
-        <Card playAgainPressed={playAgainPressed} setWonGame={setWonGame} allColors={allColors} />
-      ) : (
-        <Card playAgainPressed={playAgainPressed} setWonGame={setWonGame} allColors={allColors} />
-      )}
-      {wonGame ? (
+      <NavBar wonGame={wonGame} rgb={allColorsText.correctAnswer} />
+      <Card
+        atLeastOneHidden={atLeastOneHidden}
+        setAtLeastOneHidden={setAtLeastOneHidden}
+        wonGame={wonGame}
+        playAgainPressed={playAgainPressed}
+        setWonGame={setWonGame}
+        allColorsText={allColorsText}
+      />
+      {wonGame && (
         <PlayAgainButton
+          onClick={playAgainHandler}
+          customBg={allColorsText.correctAnswer}
+          allColorsText={allColorsText}
           getColors={getColors}
           setWonGame={setWonGame}
-          setAllColors={setAllColors}
-          customBg={allColors.correctAnswer}
+          setAllColorsText={setAllColorsText}
         />
-      ) : null}
+      )}
     </div>
   );
 }

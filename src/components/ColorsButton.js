@@ -1,32 +1,24 @@
 function ColorsButton(props) {
-
-  const hiddenButton = [];
   const checkAnswer = (button) => {
-    if (props.correctAnswer === button.target.style.backgroundColor) {
-      
-      
-      hiddenButton.forEach(element =>{
-        element.style.visibility = "visible";
-      });
-      props.setWonGame(true);
-      console.log("Hidden buttons: " + hiddenButton);
-    } else {
-      hiddenButton.push(button);
-      props.setWonGame(false);
-      button.target.style.visibility = "hidden";
+    if (!props.wonGame) {
+      if (props.correctAnswer === button.target.style.backgroundColor) {
+        props.setWonGame(true);
+      } else {
+        props.setWonGame(false);
+        button.target.style.visibility = "hidden";
+      }
     }
   };
 
   return (
-    <div className="colors-button-div" id={props.id}>
-      <button
-        className="colors-button"
-        style={{ backgroundColor: props.bgColor }}
-        onClick={checkAnswer}
-      >
-        {"ID: " + props.id + ", " + props.bgColor} 
-      </button>
-    </div>
+    <div
+      className="colors-div"
+      style={{
+        backgroundColor: props.wonGame ? props.correctAnswer : props.bgColor,
+        visibility: props.atLeastOneHidden && "visible",
+      }}
+      onClick={checkAnswer}
+    ></div>
   );
 }
 

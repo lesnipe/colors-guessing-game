@@ -5,33 +5,45 @@ function Card(props) {
     <div className="card">
       <div className="card-row">
         <ColorsButton
+          atLeastOneHidden={props.atLeastOneHidden}
+          setAtLeastOneHidden={props.setAtLeastOneHidden}
+          wonGame={props.wonGame}
           playAgainPressed={props.playAgainPressed}
           setWonGame={props.setWonGame}
-          correctAnswer={props.allColors.correctAnswer}
-          bgColor={props.allColors.values.at(0)}
+          correctAnswer={props.allColorsText.correctAnswer}
+          bgColor={props.allColorsText.colorsStrings.at(0)}
           id="1"
         />
         <ColorsButton
+          atLeastOneHidden={props.atLeastOneHidden}
+          setAtLeastOneHidden={props.setAtLeastOneHidden}
+          wonGame={props.wonGame}
           playAgainPressed={props.playAgainPressed}
           setWonGame={props.setWonGame}
-          correctAnswer={props.allColors.correctAnswer}
-          bgColor={props.allColors.values.at(1)}
+          correctAnswer={props.allColorsText.correctAnswer}
+          bgColor={props.allColorsText.colorsStrings.at(1)}
           id="2"
         />
       </div>
       <div className="card-row">
         <ColorsButton
+          atLeastOneHidden={props.atLeastOneHidden}
+          setAtLeastOneHidden={props.setAtLeastOneHidden}
+          wonGame={props.wonGame}
           playAgainPressed={props.playAgainPressed}
           setWonGame={props.setWonGame}
-          correctAnswer={props.allColors.correctAnswer}
-          bgColor={props.allColors.values.at(2)}
+          correctAnswer={props.allColorsText.correctAnswer}
+          bgColor={props.allColorsText.colorsStrings.at(2)}
           id="3"
         />
         <ColorsButton
+          atLeastOneHidden={props.atLeastOneHidden}
+          setAtLeastOneHidden={props.setAtLeastOneHidden}
+          wonGame={props.wonGame}
           playAgainPressed={props.playAgainPressed}
           setWonGame={props.setWonGame}
-          correctAnswer={props.allColors.correctAnswer}
-          bgColor={props.allColors.values.at(3)}
+          correctAnswer={props.allColorsText.correctAnswer}
+          bgColor={props.allColorsText.colorsStrings.at(3)}
           id="4"
         />
       </div>
