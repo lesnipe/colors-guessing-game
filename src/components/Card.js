@@ -1,52 +1,28 @@
-import ColorsButton from "./ColorsButton";
+import ColorButton from "./ColorButton";
+import css from "./Cards.module.css";
 
 function Card(props) {
+  // Dynamic creation of N color buttons
+  const colorsButtons = props.allColorsText.colorsStrings.map(
+    (color, index) => {
+      return (
+        <ColorButton
+          key={index}
+          atLeastOneHidden={props.atLeastOneHidden}
+          setAtLeastOneHidden={props.setAtLeastOneHidden}
+          wonGame={props.wonGame}
+          playAgainPressed={props.playAgainPressed}
+          setWonGame={props.setWonGame}
+          correctAnswer={props.allColorsText.correctAnswer}
+          bgColor={color}
+        />
+      );
+    }
+  );
+
   return (
-    <div className="card">
-      <div className="card-row">
-        <ColorsButton
-          atLeastOneHidden={props.atLeastOneHidden}
-          setAtLeastOneHidden={props.setAtLeastOneHidden}
-          wonGame={props.wonGame}
-          playAgainPressed={props.playAgainPressed}
-          setWonGame={props.setWonGame}
-          correctAnswer={props.allColorsText.correctAnswer}
-          bgColor={props.allColorsText.colorsStrings.at(0)}
-          id="1"
-        />
-        <ColorsButton
-          atLeastOneHidden={props.atLeastOneHidden}
-          setAtLeastOneHidden={props.setAtLeastOneHidden}
-          wonGame={props.wonGame}
-          playAgainPressed={props.playAgainPressed}
-          setWonGame={props.setWonGame}
-          correctAnswer={props.allColorsText.correctAnswer}
-          bgColor={props.allColorsText.colorsStrings.at(1)}
-          id="2"
-        />
-      </div>
-      <div className="card-row">
-        <ColorsButton
-          atLeastOneHidden={props.atLeastOneHidden}
-          setAtLeastOneHidden={props.setAtLeastOneHidden}
-          wonGame={props.wonGame}
-          playAgainPressed={props.playAgainPressed}
-          setWonGame={props.setWonGame}
-          correctAnswer={props.allColorsText.correctAnswer}
-          bgColor={props.allColorsText.colorsStrings.at(2)}
-          id="3"
-        />
-        <ColorsButton
-          atLeastOneHidden={props.atLeastOneHidden}
-          setAtLeastOneHidden={props.setAtLeastOneHidden}
-          wonGame={props.wonGame}
-          playAgainPressed={props.playAgainPressed}
-          setWonGame={props.setWonGame}
-          correctAnswer={props.allColorsText.correctAnswer}
-          bgColor={props.allColorsText.colorsStrings.at(3)}
-          id="4"
-        />
-      </div>
+    <div className={css.cardsContainer}>
+      <div className={css.cardsInnerContainer}>{colorsButtons}</div>
     </div>
   );
 }

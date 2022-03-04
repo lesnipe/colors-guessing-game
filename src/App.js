@@ -1,11 +1,9 @@
-import "./App.css";
 import React, { useState, useEffect } from "react";
 import Card from "./components/Card";
 import NavBar from "./components/NavBar";
 import PlayAgainButton from "./components/PlayAgainButton";
 
 function App() {
-
   // Get Colors Data
   const getColors = (colorsCount) => {
     const colors = [];
@@ -15,7 +13,7 @@ function App() {
     return {
       correctAnswer: colors.at(Math.floor(Math.random() * (colorsCount - 1))),
       colorsStrings: colors,
-    };;
+    };
   };
   const generatePastelColor = () => {
     let R = Math.floor(Math.random() * 127 + 127);
@@ -34,7 +32,7 @@ function App() {
   // States
   const [playAgainPressed, setPlayAgainPressed] = useState(false);
   const [wonGame, setWonGame] = useState(false);
-  const [allColorsText, setAllColorsText] = useState(getColors(4));
+  const [allColorsText, setAllColorsText] = useState(getColors(9));
   const [atLeastOneHidden, setAtLeastOneHidden] = useState(false);
 
   // Toggle new game state

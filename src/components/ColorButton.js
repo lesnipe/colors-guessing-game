@@ -1,4 +1,6 @@
-function ColorsButton(props) {
+import css from "./ColorButton.module.css";
+
+function ColorButton(props) {
   const checkAnswer = (button) => {
     if (!props.wonGame) {
       if (props.correctAnswer === button.target.style.backgroundColor) {
@@ -12,7 +14,7 @@ function ColorsButton(props) {
 
   return (
     <div
-      className="colors-div"
+      className={css.colorBtn}
       style={{
         backgroundColor: props.wonGame ? props.correctAnswer : props.bgColor,
         visibility: props.atLeastOneHidden && "visible",
@@ -22,4 +24,4 @@ function ColorsButton(props) {
   );
 }
 
-export default ColorsButton;
+export default ColorButton;
