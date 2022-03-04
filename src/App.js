@@ -29,11 +29,31 @@ function App() {
     setWonGame(false);
   };
 
+  // Difficulty state setter
+  const diffLevel = (count) => {
+    return count;
+  };
+
   // States
   const [playAgainPressed, setPlayAgainPressed] = useState(false);
   const [wonGame, setWonGame] = useState(false);
-  const [allColorsText, setAllColorsText] = useState(getColors(9));
+  const [allColorsText, setAllColorsText] = useState(getColors(6));
   const [atLeastOneHidden, setAtLeastOneHidden] = useState(false);
+  const [difficulty, setDifficulty] = useState(diffLevel(6));
+
+  // Toggle difficulty level (Easy/Normal/Hard)
+  useEffect(() => {
+    console.log("Difficulty: "+difficulty+",  One hidden: "+atLeastOneHidden);
+    //setAtLeastOneHidden(!atLeastOneHidden);
+    if(difficulty === 3)
+      setAllColorsText(getColors(3));
+    else if(difficulty === 6)
+      setAllColorsText(getColors(6));
+    else if(difficulty === 9)
+      setAllColorsText(getColors(9));
+    setAtLeastOneHidden(true);
+    setWonGame(false);
+  }, [difficulty]);
 
   // Toggle new game state
   useEffect(() => {
@@ -43,7 +63,12 @@ function App() {
 
   return (
     <div className="App">
-      <NavBar wonGame={wonGame} rgb={allColorsText.correctAnswer} />
+      <NavBar
+        difficulty={difficulty}
+        setDifficulty={setDifficulty}
+        wonGame={wonGame}
+        rgb={allColorsText.correctAnswer}
+      />
       <Card
         atLeastOneHidden={atLeastOneHidden}
         setAtLeastOneHidden={setAtLeastOneHidden}
@@ -59,7 +84,6 @@ function App() {
           allColorsText={allColorsText}
           getColors={getColors}
           setWonGame={setWonGame}
-          setAllColorsText={setAllColorsText}
         />
       )}
     </div>
